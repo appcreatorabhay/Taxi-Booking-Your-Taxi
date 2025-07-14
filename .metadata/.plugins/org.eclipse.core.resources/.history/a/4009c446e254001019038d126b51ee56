@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Contacts</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <h1>All Contacts</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="contact : ${contacts}">
+                <td th:text="${contact.id}">1</td>
+                <td th:text="${contact.name}">John Doe</td>
+                <td th:text="${contact.email}">john@example.com</td>
+                <td th:text="${contact.message}">Hello</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

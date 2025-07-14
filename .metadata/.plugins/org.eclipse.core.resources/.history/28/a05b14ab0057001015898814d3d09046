@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>About Us | YourTaxi</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate-1.2.1.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/superfish.js"></script>
+    <script src="js/jquery.ui.totop.js"></script>
+    <script src="js/jquery.equalheights.js"></script>
+    <script src="js/jquery.mobilemenu.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script>
+        $(document).ready(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+</head>
+<body id="top">
+    <div class="main">
+        <!--==============================header=================================-->
+        <div th:insert="~{template-parts/header.html}"></div>
+
+        <!--==============================Content=================================-->
+        <div class="content">
+            <div class="container_12">
+                <div class="grid_7">
+                    <h3>About YourTaxi</h3>
+                    <img src="images/taxi_about.jpg" alt="YourTaxi Ride" class="img_inner fleft">
+                    <div class="extra_wrapper">
+                        <div class="text1 color2">
+                            <a href="#">Reliable. Affordable. Yours.</a>
+                        </div>
+                        <p><strong>YourTaxi</strong> is your trusted ride partner, committed to providing quick, safe, and comfortable transportation across your city. With a simple booking system and professional drivers, we ensure that your daily commute is seamless and hassle-free.</p>
+                        <p>From office rides to airport drops, YourTaxi delivers on time, every time. Our focus is on quality service, customer satisfaction, and fair pricing.</p>
+                    </div>
+                    <div class="clear cl1"></div>
+                    <p>Started with a vision to simplify local travel, YourTaxi is now a growing network of verified drivers and happy customers. Our vehicles are regularly inspected, and our drivers are trained to prioritize your safety and comfort.</p>
+                    <p>Need a ride now or later? YourTaxi is available 24/7 to get you where you need to be — on time, every time.</p>
+                </div>
+
+                <div class="grid_4 prefix_1">
+                    <h3>Why Choose YourTaxi?</h3>
+                    <ul class="list li">
+                        <li class="list_count">1</li>
+                        <li class="extra_wrapper">
+                            <div class="text1 color2"><a href="#">Fast Booking</a></div>
+                            Book in seconds using our web or mobile platform.
+                        </li>
+                    </ul>
+                    <ul class="list li">
+                        <li class="list_count">2</li>
+                        <li class="extra_wrapper">
+                            <div class="text1 color2"><a href="#">Professional Drivers</a></div>
+                            Trained and verified drivers for a safe journey.
+                        </li>
+                    </ul>
+                    <ul class="list li">
+                        <li class="list_count">3</li>
+                        <li class="extra_wrapper">
+                            <div class="text1 color2"><a href="#">Live Tracking</a></div>
+                            Track your ride in real-time from start to destination.
+                        </li>
+                    </ul>
+                    <ul class="list li">
+                        <li class="list_count">4</li>
+                        <li class="extra_wrapper">
+                            <div class="text1 color2"><a href="#">Transparent Pricing</a></div>
+                            No hidden charges — just fair and upfront rates.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="clear"></div>
+                <div class="grid_12">
+                    <h3 class="h3__ind1">What Our Customers Say</h3>
+                </div>
+
+                <div class="grid_4">
+                    <blockquote class="bq1">
+                        <p><i>“YourTaxi is always on time and the drivers are polite. It's my daily ride to work now!”</i></p>
+                        <div class="color2">– Aakash Verma</div>
+                    </blockquote>
+                </div>
+                <div class="grid_4">
+                    <blockquote class="bq1">
+                        <p><i>“Loved the smooth booking and tracking system. I feel safe traveling at night too.”</i></p>
+                        <div class="color2">– Sneha Rathi</div>
+                    </blockquote>
+                </div>
+                <div class="grid_4">
+                    <blockquote class="bq1">
+                        <p><i>“Clean cars, good drivers, and punctual service. YourTaxi never disappoints!”</i></p>
+                        <div class="color2">– Manish Kapoor</div>
+                    </blockquote>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--==============================footer=================================-->
+        <div th:insert="~{template-parts/footer.html}"></div>
+    </div>
+</body>
+</html>

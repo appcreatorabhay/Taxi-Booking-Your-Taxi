@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>About Us | YourTaxi</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate-1.2.1.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/superfish.js"></script>
+    <script src="js/jquery.ui.totop.js"></script>
+    <script src="js/jquery.equalheights.js"></script>
+    <script src="js/jquery.mobilemenu.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+
+    <style>
+    body {
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        font-size: 18px;
+        background-color: #ffffff;
+        color: #222;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
+    }
+
+    .main {
+        padding-bottom: 60px;
+    }
+
+    h3 {
+        font-size: 32px;
+        margin: 50px 0 25px;
+        color: #0a0a0a;
+        font-weight: 600;
+    }
+
+    h4 {
+        font-size: 22px;
+        margin: 15px 0 10px;
+        color: #333;
+    }
+
+    p {
+        margin-bottom: 18px;
+        font-size: 18px;
+        color: #444;
+    }
+
+    .about-wrapper {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        align-items: center;
+    }
+
+    .about-wrapper img {
+        width: 320px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .mission-section, .services-section, .safety-section, .team-section {
+        background-color: #f8f9fa;
+        padding: 40px;
+        border-radius: 12px;
+        margin-top: 50px;
+    }
+
+    .services-grid, .team-grid {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .service-box, .team-member {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        flex: 1 1 30%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .service-box:hover, .team-member:hover {
+        transform: translateY(-5px);
+    }
+
+    .team-member img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+
+    blockquote {
+        background: #f2f2f2;
+        padding: 25px;
+        border-left: 5px solid #ffcc00;
+        border-radius: 8px;
+        font-style: italic;
+        font-size: 17px;
+        margin-bottom: 25px;
+        color: #555;
+    }
+
+    .text1.color2 a {
+        font-size: 20px;
+        font-weight: bold;
+        color: #0073aa;
+    }
+
+    .container_12 {
+        width: 92%;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .grid_12, .grid_4 {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    
+    .extra_wrapper {
+        margin-bottom: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0077cc;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        color: #005fa3;
+    }
+
+    .h3__ind1 {
+        margin-top: 70px;
+    }
+
+    .clear {
+        clear: both;
+    }
+    .list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+    font-size: 18px; /* <-- controls text size */
+    color: #333;      /* <-- improves visibility */
+    line-height: 1.8;
+}
+
+.list li {
+    margin-bottom: 12px;
+}
+
+.list_count {
+    font-weight: bold;
+    color: #e67e22;
+    margin-right: 10px;
+    font-size: 20px; /* <-- optional: make count stand out */
+}
+    
+
+    @media (max-width: 768px) {
+        .about-wrapper, .services-grid, .team-grid {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .service-box, .team-member {
+            flex: 1 1 100%;
+        }
+
+        .about-wrapper img {
+            width: 90%;
+        }
+    }
+</style>
+
+    <script>
+        $(document).ready(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+</head>
+<body id="top">
+<div class="main">
+    <div th:insert="~{template-parts/header.html}"></div>
+
+    <div class="content">
+        <div class="container_12">
+            <!-- About Section -->
+            <div class="grid_12">
+                <h3>About YourTaxi</h3>
+                <div class="about-wrapper">
+                    <img src="images/taxi_about.jpg" alt="YourTaxi Ride">
+                    <div>
+                        <div class="text1 color2"><a href="#">Reliable. Affordable. Yours.</a></div>
+                        <p><strong>YourTaxi</strong> is your trusted ride partner, committed to providing quick, safe, and comfortable transportation across your city.</p>
+                        <p>From office rides to airport drops, YourTaxi delivers on time — every time. We’re focused on quality service, customer satisfaction, and transparent pricing.</p>
+                        <p>Need a ride now or later? YourTaxi is available 24/7 to get you where you need to be — on time, every time.</p>
+                    </div>
+                </div>
+                <p>Started with a vision to simplify local travel, YourTaxi is now a growing network of verified drivers and happy customers. Our vehicles are regularly inspected, and our drivers are trained to prioritize your safety and comfort.</p>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="grid_12 mission-section">
+                <h3>Our Mission & Vision</h3>
+                <p><strong>Mission:</strong> To provide fast, reliable, and safe transportation tailored to your everyday needs.</p>
+                <p><strong>Vision:</strong> To become the most customer-centric and trusted local transport provider across the country.</p>
+            </div>
+
+            <!-- Services -->
+            <div class="grid_12 services-section">
+                <h3>Our Services</h3>
+                <div class="services-grid">
+                    <div class="service-box">
+                        <i class="fas fa-car fa-2x"></i>
+                        <h4>City Rides</h4>
+                        <p>Clean, affordable rides for everyday travel around town.</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-plane-departure fa-2x"></i>
+                        <h4>Airport Transfers</h4>
+                        <p>Reliable transport to and from all major airports.</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-clock fa-2x"></i>
+                        <h4>Hourly Rentals</h4>
+                        <p>Need a cab for a few hours? We’ve got flexible hourly plans.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety -->
+            <div class="grid_12 safety-section">
+                <h3>Our Safety Commitment</h3>
+                <p>Your safety is our top priority. Every vehicle is regularly inspected, sanitized, and equipped with safety features. Our drivers are background-checked and trained in customer care.</p>
+                <p>We provide SOS support, real-time tracking, and transparent communication throughout your ride.</p>
+            </div>
+
+            <!-- Why Choose -->
+            <div class="grid_12">
+                <h3>Why Choose YourTaxi?</h3>
+                <ul class="list">
+                    <li><span class="list_count">1.</span> <strong>Fast Booking:</strong> Book in seconds via app or website.</li>
+                    <li><span class="list_count">2.</span> <strong>Verified Drivers:</strong> Background-checked and well-trained.</li>
+                    <li><span class="list_count">3.</span> <strong>Live Tracking:</strong> Share your ride in real-time.</li>
+                    <li><span class="list_count">4.</span> <strong>Transparent Pricing:</strong> No hidden charges or fees.</li>
+                </ul>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid_12">
+                <h3 class="h3__ind1">What Our Customers Say</h3>
+            </div>
+            <div class="grid_4">
+                <blockquote>“YourTaxi is always on time and the drivers are polite. It's my daily ride to work now!”<br><strong>– Aakash Verma</strong></blockquote>
+            </div>
+            <div class="grid_4">
+                <blockquote>“Loved the smooth booking and tracking system. I feel safe traveling at night too.”<br><strong>– Sneha Rathi</strong></blockquote>
+            </div>
+            <div class="grid_4">
+                <blockquote>“Clean cars, good drivers, and punctual service. YourTaxi never disappoints!”<br><strong>– Manish Kapoor</strong></blockquote>
+            </div>
+
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div th:insert="~{template-parts/footer.html}"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,186 @@
+package com.example.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.dao.AdminDao;
+import com.example.model.Admin;
+import com.example.model.BookingForm;
+import com.example.model.ContactForm;
+import com.example.model.ServiceForm;
+import com.example.service.BookingFormService;
+import com.example.service.ContactFormService;
+import com.example.service.ServiceFormService;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+public class MyController {
+
+    private ContactFormService contactFormService;
+    private BookingFormService bookingFormService;
+    private ServiceFormService serviceFormService;
+    private AdminDao adminDao;
+    private PasswordEncoder passwordEncoder;
+
+    // Inject all services and DAOs
+    @Autowired
+    public void setServiceFormService(ServiceFormService serviceFormService) {
+        this.serviceFormService = serviceFormService;
+    }
+
+    @Autowired
+    public void setBookingFormService(BookingFormService bookingFormService) {
+        this.bookingFormService = bookingFormService;
+    }
+
+    @Autowired
+    public void setContactFormService(ContactFormService contactFormService) {
+        this.contactFormService = contactFormService;
+    }
+
+    @Autowired
+    public void setAdminDao(AdminDao adminDao) {
+        this.adminDao = adminDao;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping(path = {"welcome", "home"})
+    public String welcomeView(HttpServletRequest req, Model m) {
+        String requestURI = req.getRequestURI();
+        m.addAttribute("mycurrentpage", requestURI);
+        m.addAttribute("bookingForm", new BookingForm());
+        return "index";
+    }
+
+    @GetMapping("/")
+    public String home(Model model, HttpServletRequest req) {
+        String requestURI = req.getRequestURI();
+        model.addAttribute("mycurrentpage", requestURI);
+        model.addAttribute("bookingForm", new BookingForm());
+        return "index";
+    }
+
+    @GetMapping("about")
+    public String aboutView(HttpServletRequest req, Model m) {
+        m.addAttribute("mycurrentpage", req.getRequestURI());
+        return "about";
+    }
+
+    @GetMapping("cars")
+    public String carsView(HttpServletRequest req, Model m) {
+        m.addAttribute("mycurrentpage", req.getRequestURI());
+        return "cars";
+    }
+
+    @GetMapping("services")
+    public String servicesView(HttpServletRequest req, Model m) {
+        m.addAttribute("mycurrentpage", req.getRequestURI());
+        List<ServiceForm> allServices = serviceFormService.readAllServices();
+        m.addAttribute("allservices", allServices);
+        return "services";
+    }
+
+    @GetMapping("contacts")
+    public String contactsView(HttpServletRequest req, Model m) {
+        m.addAttribute("mycurrentpage", req.getRequestURI());
+        m.addAttribute("contactForm", new ContactForm());
+        return "contacts";
+    }
+
+    @GetMapping("/login")
+    public String adminLoginView(HttpServletRequest request, Model model) {
+        ServletContext servletContext = request.getServletContext();
+        Object attribute = servletContext.getAttribute("logout");
+        if (attribute instanceof Boolean) {
+            model.addAttribute("logout", attribute);
+            servletContext.removeAttribute("logout");
+        }
+        return "adminlogin";
+    }
+
+    @PostMapping("/dologin")
+    public String loginCustom(@RequestParam String username,
+                              @RequestParam String password,
+                              @RequestParam String role,
+                              HttpServletRequest req,
+                              RedirectAttributes redirectAttributes) {
+
+        Optional<Admin> optional = adminDao.findByUsername(username);
+
+        if (optional.isPresent()) {
+            Admin admin = optional.get();
+
+            // ✅ Ensure role matches
+            if (!admin.getRole().equals(role)) {
+                redirectAttributes.addFlashAttribute("error", "Wrong Role Selected");
+                return "redirect:/login";
+            }
+
+            // ✅ Validate password using bcrypt
+            if (passwordEncoder.matches(password, admin.getPassword())) {
+                req.getSession().setAttribute("loggedUser", admin);
+                return "redirect:/"; // homepage
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Invalid Password");
+                return "redirect:/login";
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "User Not Found");
+            return "redirect:/login";
+        }
+    }
+
+
+    @PostMapping("contactform")
+    public String contactForm(@Valid @ModelAttribute ContactForm contactForm,
+                               BindingResult bindingResult,
+                               Model m,
+                               RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            m.addAttribute("bindingResult", bindingResult);
+            return "contacts";
+        }
+
+        ContactForm saved = contactFormService.saveContactFormService(contactForm);
+        redirectAttributes.addFlashAttribute("message", saved != null ? "Message sent Successfully" : "Something went wrong");
+
+        return "redirect:/contacts";
+    }
+
+    @PostMapping("bookingform")
+    public String bookingForm(@Valid @ModelAttribute BookingForm bookingForm,
+                              BindingResult bindingResult,
+                              Model m,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            m.addAttribute("bookingForm", bookingForm);
+            m.addAttribute("bindingResult", bindingResult);
+            return "index";
+        } else if (bookingForm.getAdult() + bookingForm.getChildren() > 4) {
+            m.addAttribute("bookingForm", bookingForm);
+            m.addAttribute("message", "The total no. of adult and children cannot exceed 4");
+            return "index";
+        }
+
+        BookingForm saved = bookingFormService.saveBookingFormService(bookingForm);
+        redirectAttributes.addFlashAttribute("message", saved != null ? "Message Sent Successfully" : "Something went wrong");
+
+        return "redirect:/";
+    }
+}

@@ -1,0 +1,43 @@
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private CustomLogoutHandler customLogoutHandler;
+
+    @Autowired
+    public void setCustomLogoutHandler(CustomLogoutHandler customLogoutHandler) {
+        this.customLogoutHandler = customLogoutHandler;
+    }
+
+    @Autowired
+    private CustomSuccessHandler customSuccessHandler;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")  // ✅ Only admins
+                .requestMatchers("/", "/home", "/welcome", "/login", "/dologin", "/css/**", "/js/**", "/images/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/dologin")
+                .successHandler(customSuccessHandler)  // ✅ Your redirect logic
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/dologout")
+                .logoutSuccessUrl("/login?logout")
+                .addLogoutHandler(customLogoutHandler)
+                .permitAll()
+            );
+
+        return http.build();
+    }
+}

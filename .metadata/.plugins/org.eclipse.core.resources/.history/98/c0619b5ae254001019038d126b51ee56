@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+</head>
+<body>
+  <h1>READ ALL CONTACTS SECTION</h1>
+  <a href="dashboard">ADMIN HOME</a>
+  <h2 th:text="${message}"></h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>EMAIL</th>
+        <th>Message</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="contact : ${allcontacts}">
+        <td th:text="${contact.id}"></td>
+        <td th:text="${contact.email}"></td>
+        <td th:text="${contact.message}"></td>
+        <td th:text="${contact.name}"></td>
+        <td th:text="${contact.phone}"></td>
+        <td>
+          <a th:href="@{/admin/deleteContact/{id}(id=${booking.id})}">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

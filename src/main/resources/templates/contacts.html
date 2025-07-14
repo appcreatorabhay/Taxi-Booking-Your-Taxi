@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Contacts</title>
+		<meta charset="utf-8">
+		<meta name = "format-detection" content = "telephone=no" />
+		<link rel="icon" href="images/favicon.ico">
+		<link rel="shortcut icon" href="images/favicon.ico" />
+		<link rel="stylesheet" href="css/form.css">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-migrate-1.2.1.js"></script>
+		<script src="js/script.js"></script>
+		<script src="js/superfish.js"></script>
+		<script src="js/jquery.ui.totop.js"></script>
+		<script src="js/jquery.equalheights.js"></script>
+		<script src="js/jquery.mobilemenu.js"></script>
+		<script src="js/jquery.easing.1.3.js"></script>
+		<script src="js/TMForm.js"></script>
+		<script>
+			$(document).ready(function(){
+				$().UItoTop({ easingType: 'easeOutQuart' });
+			});
+		</script>
+		<!--[if lt IE 8]>
+			<div style=' clear: both; text-align:center; position: relative;'>
+				<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+					<img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+				</a>
+			</div>
+		<![endif]-->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+			<link rel="stylesheet" media="screen" href="css/ie.css">
+		<![endif]-->
+	</head>
+	<body class="" id="top">
+		<div class="main">
+<!--==============================header=================================-->
+<div th:insert="~{template-parts/header.html}"></div>
+
+<!--==============================header=================================-->
+
+<!--==============================Content=================================-->
+			<div class="content"><div class="ic">More Website Templates @ TemplateMonster.com - April 07, 2014!</div>
+				<div class="container_12">
+					<div class="grid_12">
+						<h3>Find Us</h3>
+						<div class="map">
+							<figure>
+								<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d24214.807650104907!2d-73.94846048422478!3d40.65521573400813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1395650655094" style="border:0"></iframe>
+							</figure>
+						</div>
+					</div>
+			<div class="grid_5">
+  <h3>Contact Info</h3>
+  <div class="map">
+    <div class="text1 color2">Feel free to reach out to us anytime. We’re here to assist you!</div>
+    <p>Our team is committed to providing you with fast and reliable service.</p>
+    <p>Need help? Don’t hesitate to contact us during our working hours.</p>
+    <address>
+      <dl>
+        <dt>123 Main Street,<br>
+          Your City, Country
+        </dt>
+        <dd><span>Phone:</span> +91 9876543210</dd>
+        <dd><span>Email:</span> yourtaxi@gmail.com</dd>
+        <dd><span>Working Hours:</span> Mon - Sat: 9am - 6pm</dd>
+      </dl>
+    </address>
+  </div>
+</div>
+			
+<div class="grid_6 prefix_1">
+  <div class="p-4 rounded shadow" style="background-color: #fffbe6; border: 1px solid #ffe58f;">
+    <h3 class="mb-3 text-dark fw-bold">📞 Contact Us</h3>
+    <h5 th:text="${message}" class="text-success mb-3"></h5>
+
+    <form id="form" th:action="@{contactform}" th:object="${contactForm}" method="post">
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Your Name" th:value="${contactForm.name}" required pattern="[A-Za-z\s]+" title="Name should only contain letters and spaces">
+        <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" placeholder="Email Address" th:value="${contactForm.email}" required>
+        <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" class="form-control" name="phone" placeholder="Phone Number" th:value="${contactForm.phone}" required pattern="\d{10,}" title="Enter a valid phone number">
+        <small class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Message</label>
+        <textarea class="form-control" name="message" rows="4" placeholder="Write your message here..." th:text="${contactForm.message}" required minlength="20"></textarea>
+        <small class="text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></small>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-warning fw-bold w-50">Send</button>
+        <button type="reset" class="btn btn-secondary w-50">Clear</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+<!--==============================footer=================================-->
+		<div th:insert="~{template-parts/footer.html}"></div>
+
+<!--==============================footer=================================-->
+
+	</body>
+</html>
